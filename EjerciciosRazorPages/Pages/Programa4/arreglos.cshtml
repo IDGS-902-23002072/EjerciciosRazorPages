@@ -2,3 +2,84 @@
 @model EjerciciosRazorPages.Pages.Programa4.arreglosModel
 @{
 }
+<h1> Arreglos </h1>
+
+@{
+    int[] arregloAleatorio = new int[20];
+    Random rand = new Random();
+
+    int sumatoria = 0;
+    double promedio = 0;
+
+    for (int i = 0; i < arregloAleatorio.Length; i++)
+    {
+        arregloAleatorio[i] = rand.Next(0, 101);
+        sumatoria += arregloAleatorio[i];
+    }
+
+    promedio = (double)sumatoria / arregloAleatorio.Length;
+
+    int[] arregloOrdenado = (int[])arregloAleatorio.Clone();
+    Array.Sort(arregloOrdenado);
+
+    int m1 = arregloOrdenado[9]; 
+    int m2 = arregloOrdenado[10];
+    double mediana = (m1 + m2) / 2.0;
+
+    int[] frecuencias = new int[101];
+
+    for (int i = 0; i < arregloAleatorio.Length; i++)
+    {
+        int numero = arregloAleatorio[i];
+        frecuencias[numero]++;
+    }
+
+    int maxRepeticiones = 0;
+    for (int i = 0; i < frecuencias.Length; i++)
+    {
+        if (frecuencias[i] > maxRepeticiones)
+        {
+            maxRepeticiones = frecuencias[i];
+        }
+    }
+}
+
+<h3>Números Generados:</h3>
+<p>
+    @foreach (int numero in arregloAleatorio)
+    {
+        <span>@numero</span>
+    }
+</p>
+
+<h3>Estadísticas Básicas:</h3>
+<p><strong>Sumatoria:</strong> @sumatoria</p>
+<p><strong>Promedio:</strong> @promedio.ToString("F2")</p>
+<p><strong>Mediana:</strong> @mediana</p>
+
+<h3>Moda:</h3>
+@if (maxRepeticiones <= 1)
+{
+    <p>No hay moda (ningún número se repite).</p>
+}
+else
+{
+    <p>La(s) moda(s) con <strong>@maxRepeticiones</strong> repeticiones: </p>
+    <ul>
+        @for (int i = 0; i < frecuencias.Length; i++)
+        {
+            if (frecuencias[i] == maxRepeticiones)
+            {
+                <li>Número: @i</li>
+            }
+        }
+    </ul>
+}
+
+<h3>Arreglo Ordenado:</h3>
+<p>
+    @foreach (int num in arregloOrdenado)
+    {
+        <span>@num </span>
+    }
+</p>
