@@ -1,26 +1,75 @@
 ﻿@page
 @model EjerciciosRazorPages.Pages.Programa3.expresionModel
 @{
+    ViewData["Title"] = "Evaluación de Expresión";
 }
 
-<h1>Evaluación de la expresión</h1>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Evaluación de la Expresión</h1>
 
-<form method="post">
-    <p>Valor de A: <input type="number" placeholder="Ej. 1" asp-for="valorA" step="0.01" /></p>
-    <p>Valor de B: <input type="number" placeholder="Ej. 2" asp-for="valorB" step="0.01" /></p>
-    <p>Valor de X: <input type="number" placeholder="Ej. 3" asp-for="valorX" step="0.01" /></p>
-    <p>Valor de Y: <input type="number" placeholder="Ej. 4" asp-for="valorY" step="0.01" /></p>
-    <p>Valor de N: <input type="number" placeholder="Ej. 5"  asp-for="valorN" /></p>
-    <input type="submit" value="Calcular" class="btn btn-primary w-100" />
-</form>
+    <div class="row g-4 align-items-start">
 
-@if (Model.total != 0)
-{
-<h2>Sumatoria</h2>
-@for(int i =0; i < Model.resultados.Length; i++)
-{
-    <p>@Model.resultados[i]</p>
-}
+        <div class="col-md-5">
+            <form method="post" class="p-4 border rounded bg-light shadow-sm">
+                <h3 class="h5 mb-3 text-secondary border-bottom pb-2">Variables de Entrada</h3>
 
-<p>Resultado: @Model.total</p>
-}
+                <div class="mb-3">
+                    <label asp-for="valorA" class="form-label fw-bold">Valor de A:</label>
+                    <input type="number" placeholder="Ej. 1" asp-for="valorA" step="0.01" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="valorB" class="form-label fw-bold">Valor de B:</label>
+                    <input type="number" placeholder="Ej. 2" asp-for="valorB" step="0.01" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="valorX" class="form-label fw-bold">Valor de X:</label>
+                    <input type="number" placeholder="Ej. 3" asp-for="valorX" step="0.01" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="valorY" class="form-label fw-bold">Valor de Y:</label>
+                    <input type="number" placeholder="Ej. 4" asp-for="valorY" step="0.01" class="form-control" />
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="valorN" class="form-label fw-bold">Valor de N (Iteraciones):</label>
+                    <input type="number" placeholder="Ej. 5" asp-for="valorN" class="form-control" />
+                </div>
+
+                <input type="submit" value="Calcular" class="btn btn-primary w-100 fs-5" />
+            </form>
+        </div>
+
+        <div class="col-md-7">
+            @if (Model.total != 0)
+            {
+                <div class="p-4 border rounded bg-white shadow-sm">
+                    <h2 class="h4 text-primary border-bottom pb-2 mb-3"><i class="bi bi-sigma"></i> Sumatoria</h2>
+
+                    <div class="pe-2 mb-4 font-monospace" style="max-height: 250px; overflow-y: auto;">
+                        @for (int i = 0; i < Model.resultados.Length; i++)
+                        {
+                            <div class="p-2 bg-light rounded mb-2 border-start border-3 border-secondary text-muted">
+                                @Model.resultados[i]
+                            </div>
+                        }
+                    </div>
+
+                    <div class="alert alert-success border-0 shadow-sm p-3 mt-3">
+                        <span class="small text-uppercase text-success d-block fw-bold">Resultado Final:</span>
+                        <span class="display-6 fw-bold">@Model.total</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted p-5 border rounded bg-light border-dashed">
+                    <p class="mb-0">Define los valores de las variables y procesa la expresión para calcular la sumatoria.</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
