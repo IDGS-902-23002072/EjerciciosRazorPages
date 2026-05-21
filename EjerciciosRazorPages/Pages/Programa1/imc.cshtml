@@ -1,0 +1,83 @@
+﻿@page
+@model EjerciciosRazorPages.Pages.Programa1.imcModel
+@{
+    ViewData["Title"] = "Calculadora IMC";
+}
+
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Calculadora del índice de masa corporal (IMC)</h1>
+
+    <div class="row g-4 align-items-start">
+
+        <div class="col-md-5">
+            <form method="post" class="p-4 border rounded bg-light shadow-sm">
+                <div class="mb-3">
+                    <label asp-for="peso" class="form-label fw-bold">Peso(kg):</label>
+                    <input type="number" asp-for="peso" step="0.01" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="altura" class="form-label fw-bold">Altura(m):</label>
+                    <input type="number" asp-for="altura" step="0.01" class="form-control" />
+                </div>
+                <input type="submit" value="Calcular" class="btn btn-primary w-100" />
+            </form>
+        </div>
+
+        <div class="col-md-7">
+            @if (Model.imc != 0)
+            {
+                @switch (Model.imc)
+                {
+                    case < 18:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-1">IMC = @Model.imc</h2>
+                            <p class="fs-4 text-warning fw-semibold mb-4">Peso Bajo</p>
+                            <img src="~/img/imcBajoPeso.png" class="img-fluid rounded" style="max-height: 250px; width: auto;" />
+                        </div>
+                        break;
+                    case >= 18 and < 25:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-1">IMC = @Model.imc</h2>
+                            <p class="fs-4 text-success fw-semibold mb-4">Peso Normal</p>
+                            <img src="~/img/imcPesoNormal.png" class="img-fluid rounded" style="max-height: 250px; width: auto;" />
+                        </div>
+                        break;
+                    case >= 25 and < 27:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-1">IMC = @Model.imc</h2>
+                            <p class="fs-4 text-info fw-semibold mb-4">Sobre Peso</p>
+                            <img src="~/img/imcSobrePeso.png" class="img-fluid rounded" style="max-height: 250px; width: auto;" />
+                        </div>
+                        break;
+                    case >= 27 and < 30:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-1">IMC = @Model.imc</h2>
+                            <p class="fs-4 text-warning fw-semibold mb-4">Obesidad Grado I</p>
+                            <img src="~/img/imcObesidadGradoI.png" class="img-fluid rounded" style="max-height: 250px; width: auto;" />
+                        </div>
+                        break;
+                    case >= 30 and < 40:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-1">IMC = @Model.imc</h2>
+                            <p class="fs-4 text-danger fw-semibold mb-4">Obesidad Grado II</p>
+                            <img src="~/img/imcObesidadGradoII.png" class="img-fluid rounded" style="max-height: 250px; width: auto;" />
+                        </div>
+                        break;
+                    case >= 40:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-1">IMC = @Model.imc</h2>
+                            <p class="fs-4 text-danger fw-bold mb-4">Obesidad Grado III</p>
+                            <img src="~/img/imcObesidadGradoIII.png" class="img-fluid rounded" style="max-height: 250px; width: auto;" />
+                        </div>
+                        break;
+                    default:
+                        <div class="text-center p-4 border rounded shadow-sm bg-light">
+                            <h2 class="display-5 fw-bold mb-0">IMC = @Model.imc</h2>
+                        </div>
+                        break;
+                }
+            }
+        </div>
+
+    </div>
+</div>
