@@ -6,13 +6,13 @@ namespace EjerciciosRazorPages.Pages.Programa3
 {
     public class expresionModel : PageModel
     {
-        public string valorA { get; set; } = "";
-        public string valorB { get; set; } = "";
-        public string valorX { get; set; } = "";
-        public string valorY { get; set; } = "";
-        public string valorN { get; set; } = "";
-        public double[] valoresNK { get; set; } = [];
-        public double[] resultados { get; set; } = [];
+        [BindProperty] public string valorA { get; set; } = "";
+        [BindProperty] public string valorB { get; set; } = "";
+        [BindProperty] public string valorX { get; set; } = "";
+        [BindProperty] public string valorY { get; set; } = "";
+        [BindProperty] public string valorN { get; set; } = "";
+        public double[] valoresNK { get; set; }
+        public double[] resultados { get; set; }
 
         public double total { get; set; } = 0;
         public void OnGet()
@@ -25,6 +25,10 @@ namespace EjerciciosRazorPages.Pages.Programa3
             double y = Convert.ToDouble(valorY);
             double n = Convert.ToDouble(valorN);
 
+            int tamano = (int)n + 1;
+            valoresNK = new double[tamano];
+            resultados = new double[tamano];
+
             evaluacion(n,a,b,x,y);
 
         }
@@ -32,11 +36,12 @@ namespace EjerciciosRazorPages.Pages.Programa3
         public void evaluacion(double n, double a, double b, double x, double y)
         {
             calcularNK(n);
-
-            for (int k = 0; k < valoresNK.Length; k++)
+            double valor = 0;
+            for (int k = 0; k <= n; k++)
             {
+                valor = valoresNK[k] * Math.Pow((a * x), (n - k)) * Math.Pow((b * y), (k));
                 total += valoresNK[k] * Math.Pow((a * x), (n - k)) * Math.Pow((b * y), (k));
-                resultados[k]= total;
+                resultados[k]= valor;
             }
 
         }
@@ -45,7 +50,7 @@ namespace EjerciciosRazorPages.Pages.Programa3
         {
             double valor = 0;
 
-            for (int k = 0; k < n; k++)
+            for (int k = 0; k <= n; k++)
             {
                 valor = (factorial(n) / (factorial(k) * factorial(n - k)));
                 valoresNK[k] = valor;
