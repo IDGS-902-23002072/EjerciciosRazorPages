@@ -14,11 +14,11 @@
             <form method="post" class="p-4 border rounded bg-light shadow-sm">
                 <div class="mb-3">
                     <label asp-for="peso" class="form-label fw-bold">Peso(kg):</label>
-                    <input type="number" asp-for="peso" step="0.01" class="form-control" />
+                    <input type="number" asp-for="peso" step="0.01" class="form-control" min="0" />
                 </div>
                 <div class="mb-3">
                     <label asp-for="altura" class="form-label fw-bold">Altura(m):</label>
-                    <input type="number" asp-for="altura" step="0.01" class="form-control" />
+                    <input type="number" asp-for="altura" step="0.01" class="form-control" min="0"/>
                 </div>
                 <input type="submit" value="Calcular" class="btn btn-primary w-100" />
             </form>
