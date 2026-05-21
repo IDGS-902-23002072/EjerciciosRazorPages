@@ -1,14 +1,67 @@
 ﻿@page
 @model EjerciciosRazorPages.Pages.Programa2.codificarModel
 @{
+    ViewData["Title"] = "Codificación";
 }
 
-<h1>Codificación</h1>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Codificación</h1>
 
-<form method="post">
-    <p>Mensaje a codificar: <input type="text" placeholder="Ej. Hola Mundo" /></p>
-    <p>Valor del factor (N): <input type="number" min="1" placeholder="Ej. 2" /> </p>
-    <input type="submit" value="Codificar" />
-    <input type="button" value="Decodificar" />
-</form>
+    <div class="row g-4 align-items-start">
 
+        <div class="col-md-6">
+            <form method="post" class="p-4 border rounded bg-light shadow-sm">
+                <div class="mb-3">
+                    <label asp-for="mensaje" class="form-label fw-bold">Mensaje a codificar:</label>
+                    <input type="text" placeholder="Ej. Hola Mundo" asp-for="mensaje" class="form-control" />
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="factorN" class="form-label fw-bold">Valor del factor (N):</label>
+                    <input type="number" min="1" placeholder="Ej. 2" asp-for="factorN" class="form-control" />
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <input type="submit" name="accion" value="Codificar" class="btn btn-primary w-100" />
+                    </div>
+                    <div class="col-6">
+                        <input type="submit" name="accion" value="Decodificar" class="btn btn-secondary w-100" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            @if (!Model.msjCodificado.IsWhiteSpace() || !Model.msjDecodificado.IsWhiteSpace())
+            {
+                <div class="p-4 border rounded bg-white shadow-sm">
+                    <h3 class="h5 text-muted mb-3 border-bottom pb-2">Resultado del proceso</h3>
+
+                    @if (!Model.msjCodificado.IsWhiteSpace())
+                    {
+                        <div class="mb-2">
+                            <span class="small text-uppercase text-secondary d-block fw-bold">Mensaje codificado:</span>
+                            <p class="fs-4 text-primary bg-light p-3 border rounded font-monospace text-break mb-0">@Model.msjCodificado</p>
+                        </div>
+                    }
+
+                    @if (!Model.msjDecodificado.IsWhiteSpace())
+                    {
+                        <div class="mb-2">
+                            <span class="small text-uppercase text-secondary d-block fw-bold">Mensaje decodificado:</span>
+                            <p class="fs-4 text-success bg-light p-3 border rounded font-monospace text-break mb-0">@Model.msjDecodificado</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted p-5 border rounded bg-light border-dashed">
+                    <p class="mb-0">Introduce un mensaje, el factor y selecciona una acción para ver el resultado.</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

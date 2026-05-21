@@ -19,7 +19,19 @@ namespace EjerciciosRazorPages.Pages.Programa2
         {
         }
 
-        public void OnPost()
+        public void OnPost(string accion)
+        {
+            if (accion == "Codificar")
+            {
+                codificar();
+            }
+            else if (accion == "Decodificar")
+            {
+                decodificar();
+            }
+        }
+
+        public void codificar()
         {
             int n = Convert.ToInt32(factorN);
 
@@ -35,8 +47,9 @@ namespace EjerciciosRazorPages.Pages.Programa2
 
                         msjCodificado += alfabeto[nuevaPosicion];
                     }
-                    else {
-                        msjCodificado += mensaje[i];                    
+                    else
+                    {
+                        msjCodificado += mensaje[i];
                     }
                 }
                 else
@@ -46,18 +59,26 @@ namespace EjerciciosRazorPages.Pages.Programa2
             }
         }
 
-        public void decodificar() {
+        public void decodificar()
+        {
+
             int n = Convert.ToInt32(factorN);
+            codificar();
+
+            n = n % alfabeto.Length;
 
             for (int i = 0; i < msjCodificado.Length; i++)
             {
                 if (msjCodificado[i] != ' ')
                 {
-                    int posicion = alfabeto.IndexOf(char.ToUpper(msjCodificado[i]));
+                    int posicion =
+                        alfabeto.IndexOf(char.ToUpper(msjCodificado[i]));
 
                     if (posicion != -1)
                     {
-                        int nuevaPosicion = (posicion - n) % alfabeto.Length;
+                        int nuevaPosicion =
+                            (posicion - n + alfabeto.Length)
+                            % alfabeto.Length;
 
                         msjDecodificado += alfabeto[nuevaPosicion];
                     }
@@ -72,5 +93,6 @@ namespace EjerciciosRazorPages.Pages.Programa2
                 }
             }
         }
+
     }
 }
